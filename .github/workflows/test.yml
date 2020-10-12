@@ -44,3 +44,11 @@ jobs:
       - name: Run pwd command
         run: pwd
 
+      # Installing some dependencies
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+
+      # Running the pytest for testing code
+      - name: running the unit test
+        run: python -m pytest -s Tests
