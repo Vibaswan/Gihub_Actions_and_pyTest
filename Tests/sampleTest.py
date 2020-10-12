@@ -1,17 +1,17 @@
 import pytest
 
 
-def print_test():
+def test_print():
     print('test complete!!!!')
 
 
-def add_test():
+def test_add():
     a = 5
     b = 1+a
     assert a+1 == b
 
 
-def print_test_2():
+def test_print_2():
     print('test 2 complete!!!!!!')
 
 
