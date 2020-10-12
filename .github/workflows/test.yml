@@ -53,3 +53,7 @@ jobs:
       # Running the pytest for testing code
       - name: running the unit test
         run: python -m pytest -s tests
+
+      # running a docker
+      - name: hello-world docker
+        run: docker run hello-world
