@@ -52,4 +52,4 @@ jobs:
 
       # Running the pytest for testing code
       - name: running the unit test
-        run: python -m pytest ./Tests/sampleTest.py
+        run: python -m pytest ./tests/sampleTest.py
