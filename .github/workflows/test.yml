@@ -40,3 +40,7 @@ jobs:
       - name: Run a one-line script
         run: echo Hello, world!
 
+      # Runs a simple pwd command
+      - name: Run pwd command
+        run: pwd
+
