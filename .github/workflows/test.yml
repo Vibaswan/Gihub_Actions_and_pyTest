@@ -86,7 +86,7 @@ jobs:
         run:  |
           sudo lsof -i -P -n
           sudo curl http://www.google.com
-          sudo curl http://localhost:11047/api/v1/sessions/1/ixnetwork/globals/preferences
+          sudo curl http://localhost:11147/api/v1/sessions/1/ixnetwork/globals/preferences
 
       # Running the pytest for testing code
       - name: running the unit test
