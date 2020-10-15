@@ -55,6 +55,14 @@ jobs:
       - name: check port
         run: sudo lsof -i -P -n
 
+      # setting binding to ipv4 only i guess
+      - name: bind ipv4
+        run: sudo sysctl -w net.ipv6.conf.all.forwarding=1
+
+      # checking ports again
+      - name: check ports again
+        run: sudo lsof -i -P -n
+
       # logging into dockerHub
       - name: Logging into DockerHub
         uses: docker/login-action@v1
@@ -68,7 +76,7 @@ jobs:
 
       # running a docker
       - name: running ixn docker
-        run: docker run --privileged --tty --detach --publish 8009:80 --name ixn ajbalogh/ixnetwork:latest
+        run: docker run --privileged --tty --detach --publish 127.0.0.1:8009:80 --name ixn ajbalogh/ixnetwork:latest
 
       # docker port check
       - name: port check
