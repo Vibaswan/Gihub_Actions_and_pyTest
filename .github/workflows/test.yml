@@ -86,7 +86,7 @@ jobs:
         run:  |
           sudo apt install curl
           sudo lsof -i -P -n
-          curl -I http://127.0.0.1:8000
+          curl http://127.0.0.1:8000/api/v1/sessions/1/ixnetwork/globals/preferences
 
       # Running the pytest for testing code
       - name: running the unit test
