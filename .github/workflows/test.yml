@@ -76,7 +76,7 @@ jobs:
 
       # running a docker
       - name: running ixn docker
-        run: docker run --privileged --tty --detach --publish localhost:11147:80 --name ixn ajbalogh/ixnetwork:latest
+        run: docker run --privileged --tty --detach --publish 11147:80 --name ixn ajbalogh/ixnetwork:latest
 
       # docker port check
       - name: port check
@@ -85,6 +85,7 @@ jobs:
       - name: install curl
         run:  |
           sudo lsof -i -P -n
+          sudo curl http://www.google.com
           sudo curl http://localhost:11047/api/v1/sessions/1/ixnetwork/globals/preferences
 
       # Running the pytest for testing code
