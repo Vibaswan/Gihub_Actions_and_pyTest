@@ -76,7 +76,7 @@ jobs:
 
       # running a docker
       - name: running ixn docker
-        run: docker run --privileged --tty --detach --publish 127.0.0.1:8000:80 --name ixn ajbalogh/ixnetwork:latest
+        run: docker run --privileged --tty --detach --publish 127.0.0.1:11009:80 --name ixn ajbalogh/ixnetwork:latest
 
       # docker port check
       - name: port check
@@ -86,7 +86,7 @@ jobs:
         run:  |
           sudo apt install curl
           sudo lsof -i -P -n
-          curl http://127.0.0.1:8000/api/v1/sessions/1/ixnetwork/globals/preferences
+          curl http://127.0.0.1:11009/api/v1/sessions/1/ixnetwork/globals/preferences
 
       # Running the pytest for testing code
       - name: running the unit test
