@@ -54,7 +54,7 @@ jobs:
       # install curl
       - name: install curl
         run:  |
-          apt install curl
+          sudo apt-get install curl
           curl -I http://localhost:11009/
 
 
