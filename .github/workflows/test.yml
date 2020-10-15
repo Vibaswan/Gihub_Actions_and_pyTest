@@ -63,6 +63,12 @@ jobs:
       - name: check ports again
         run: sudo lsof -i -P -n
 
+      # disable firewall
+      - name: disable firewall
+        run: |
+          sudo ufw status
+          sudo ufw disable
+
       # logging into dockerHub
       - name: Logging into DockerHub
         uses: docker/login-action@v1
@@ -91,7 +97,7 @@ jobs:
       - name: install curl
         run:  |
           sudo lsof -i -P -n
-          sudo curl http://localhost:8000/api/v1/sessios/1/ixnetwork/globals/preferences
+          sudo curl http://127.0.0.1:8000/api/v1/sessios/1/ixnetwork/globals/preferences
 
       # Running the pytest for testing code
       - name: running the unit test
