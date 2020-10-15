@@ -70,6 +70,9 @@ jobs:
       - name: running ixn docker
         run: docker run --privileged --tty --detach --publish 8000:80 --name ixn ajbalogh/ixnetwork:latest
 
+      # docker port check
+      - name: port check
+        run: docker port ixn
       # install curl
       - name: install curl
         run:  |
