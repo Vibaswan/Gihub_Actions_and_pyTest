@@ -78,7 +78,7 @@ jobs:
       - name: running ixn docker
         run: |
           docker network create --subnet=192.168.1.0/24 mynet
-          docker run --privileged --tty --detach --net mynet --ip 192.168.1.10 --name ixn ajbalogh/ixnetwork:latest
+          docker run --privileged --tty --detach --net mynet -p 80:80 --ip 192.168.1.10 --name ixn ajbalogh/ixnetwork:latest
 
       # checking docker container
       - name: check docker container
