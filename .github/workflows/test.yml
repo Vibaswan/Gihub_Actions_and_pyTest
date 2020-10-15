@@ -69,7 +69,7 @@ jobs:
       # install curl
       - name: install curl
         run:  |
-          apt install curl
+          sudo apt install curl
           curl -I http://localhost:11009/
 
       # Running the pytest for testing code
