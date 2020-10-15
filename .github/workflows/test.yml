@@ -50,7 +50,10 @@ jobs:
           python -m pip install --upgrade pip
           pip install pytest
           pip install requests
-          sudo lsof -i -P -n
+
+      # checking ports
+      - name: check port
+        run: sudo lsof -i -P -n
 
       # logging into dockerHub
       - name: Logging into DockerHub
@@ -71,8 +74,8 @@ jobs:
       - name: install curl
         run:  |
           sudo apt install curl
-          curl -I http://localhost:8000
           sudo lsof -i -P -n
+          curl -I http://localhost:8000
 
       # Running the pytest for testing code
       - name: running the unit test
