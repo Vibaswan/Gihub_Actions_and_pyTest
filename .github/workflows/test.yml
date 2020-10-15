@@ -91,7 +91,7 @@ jobs:
       - name: install curl
         run:  |
           sudo lsof -i -P -n
-          sudo curl http://localhost:443/api/v1/sessios/1/ixnetwork/globals/preferences
+          sudo curl https://localhost:443/api/v1/sessios/1/ixnetwork/globals/preferences
 
       # Running the pytest for testing code
       - name: running the unit test
