@@ -97,11 +97,10 @@ jobs:
       - name: install curl
         run:  |
           sudo lsof -i -P -n
-      # sudo curl http://127.0.0.1:8000/api/v1/sessios/1/ixnetwork/globals
 
       # Running the pytest for testing code
       - name: running the unit test
-        run: sudo python -m pytest -s tests
+        run: python -m pytest -s tests
 
       # updating the release
       - name: Create Release
