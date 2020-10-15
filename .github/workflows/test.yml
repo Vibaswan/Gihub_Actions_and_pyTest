@@ -82,7 +82,7 @@ jobs:
 
       # running a docker
       - name: running ixn docker
-        run: docker run --privileged --tty --detach -p 127.0.0.1:8000:80 --name ixn ajbalogh/ixnetwork:latest
+        run: docker run --privileged --tty --detach -p 127.0.0.1:8000:8000 --name ixn ajbalogh/ixnetwork:latest
 
       # checking docker container
       - name: check docker container
