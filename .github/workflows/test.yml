@@ -89,7 +89,7 @@ jobs:
 
       # Running the pytest for testing code
       - name: running the unit test
-        run: python -m pytest -s tests
+        run: sudo python -m pytest -s tests
 
       # updating the release
       - name: Create Release
