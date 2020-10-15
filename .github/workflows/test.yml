@@ -50,6 +50,7 @@ jobs:
           python -m pip install --upgrade pip
           pip install pytest
           pip install requests
+          sudo lsof -i -P -n
 
       # logging into dockerHub
       - name: Logging into DockerHub
@@ -64,13 +65,14 @@ jobs:
 
       # running a docker
       - name: running ixn docker
-        run: docker run --privileged --tty --detach --publish 11009:80 --name ixn ajbalogh/ixnetwork:latest
+        run: docker run --privileged --tty --detach --publish 8000:80 --name ixn ajbalogh/ixnetwork:latest
 
       # install curl
       - name: install curl
         run:  |
           sudo apt install curl
-          curl -I http://localhost:11009/
+          curl -I http://localhost:8000
+          sudo lsof -i -P -n
 
       # Running the pytest for testing code
       - name: running the unit test
