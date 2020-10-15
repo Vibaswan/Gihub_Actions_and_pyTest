@@ -49,10 +49,7 @@ jobs:
         run: |
           python -m pip install --upgrade pip
           pip install pytest
-
-      # Running the pytest for testing code
-      - name: running the unit test
-        run: python -m pytest -s tests
+          pip install requests
 
       # logging into dockerHub
       - name: Logging into DockerHub
@@ -61,9 +58,17 @@ jobs:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
 
+      # pulling the docker image
+      - name: pulling light weight ixn image
+        run: docker pull ajbalogh/ixnetwork:latest
+
       # running a docker
-      - name: hello-world docker
-        run: docker run hello-world
+      - name: running ixn docker
+        run: docker run --privileged --tty --detach --publish 11009:80 --name ixn ajbalogh/ixnetwork:latest
+
+      # Running the pytest for testing code
+      - name: running the unit test
+        run: python -m pytest -s tests
 
       # updating the release
       - name: Create Release

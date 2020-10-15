@@ -1,4 +1,6 @@
 import pytest
+import requests
+import json
 
 
 def test_print():
@@ -13,6 +15,13 @@ def test_add():
 
 def test_print_2():
     print('test 2 complete!!!!!!')
+
+
+def test_docker_server():
+    url = 'http://localhost:11009/api/v1/sessions/1/ixnetwork/globals/preferences?includes=autoSaveLocation'
+    Headers = {'content-type': 'application/json'}
+    response = requests.get(url=url, headers=Headers, verify={})
+    print(response.json())
 
 
 if __name__ == '__main__':
