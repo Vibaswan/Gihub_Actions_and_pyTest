@@ -1,0 +1,115 @@
+# This is a basic workflow to help you get started with Actions
+
+name: CI
+
+# Controls when the action will run. Triggers the workflow on push or pull request
+# events but only for the main branch
+on:
+  push:
+    branches:
+      main
+    paths:
+      'VERSION'
+
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+  # This workflow contains a single job called "build"
+  build:
+    # The type of runner that the job will run on
+    runs-on: ubuntu-latest
+
+    # Steps represent a sequence of tasks that will be executed as part of the job
+    steps:
+
+      # checking out my code
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      # basically just getting the version number for which the build got triggered
+      - name: Get version number
+        id: get_version
+        run: echo "::set-output name=version::$(cat VERSION)"
+
+      # setting up python for the project
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: '3.x'
+
+      # Runs a single command using the runners shell
+      - name: Run a one-line script
+        run: echo Hello, world!
+
+      # Runs a simple pwd command
+      - name: Run pwd command
+        run: pwd
+
+      # Installing some dependencies
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install pytest
+          pip install requests
+
+      # checking ports
+      - name: check port
+        run: sudo lsof -i -P -n
+
+      # setting binding to ipv4 only i guess
+      - name: bind ipv4
+        run: sudo sysctl -w net.ipv6.conf.all.forwarding=1
+
+      # checking ports again
+      - name: check ports again
+        run: sudo lsof -i -P -n
+
+      # disable firewall
+      - name: disable firewall
+        run: |
+          sudo ufw status
+          sudo ufw disable
+
+      # logging into dockerHub
+      - name: Logging into DockerHub
+        uses: docker/login-action@v1
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+
+      # pulling the docker image
+      - name: pulling light weight ixn image
+        run: docker pull ajbalogh/ixnetwork:latest
+
+      # running a docker
+      - name: running ixn docker
+        run: docker run --privileged --tty --detach -p 127.0.0.1:8000:80 --name ixn ajbalogh/ixnetwork:latest
+
+      # checking docker container
+      - name: check docker container
+        run: docker container ps -a
+
+      # docker port check
+      - name: port check
+        run: docker port ixn
+
+
+      # install curl
+      - name: install curl
+        run:  |
+          sudo lsof -i -P -n
+
+      # Running the pytest for testing code
+      - name: running the unit test
+        run: python -m pytest -s tests
+
+      # updating the release
+      - name: Create Release
+        id: create_release
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: v${{ steps.get_version.outputs.version }}
+          release_name: Release ${{ steps.get_version.outputs.version }}
+          draft: false
+          prerelease: false
