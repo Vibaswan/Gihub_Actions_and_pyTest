@@ -97,7 +97,7 @@ jobs:
       - name: install curl
         run:  |
           sudo lsof -i -P -n
-          curl --trace-ascii - http://localhost:8000/api/v1/sessions/1/ixnetwork/globals/preferences?includes=autoSaveLocation
+          curl --trace-ascii - http://localhost:8000/api/v1/sessions/1/ixnetwork/globals
 
       # Running the pytest for testing code
       - name: running the unit test
