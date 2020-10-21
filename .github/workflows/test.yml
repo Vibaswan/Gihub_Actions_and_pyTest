@@ -44,20 +44,9 @@ jobs:
           pip install pytest
           pip install requests
 
-      # logging into dockerHub
-      - name: Logging into DockerHub
-        uses: docker/login-action@v1
-        with:
-          username: ${{ secrets.DOCKERHUB_USERNAME }}
-          password: ${{ secrets.DOCKERHUB_TOKEN }}
-
-      # pulling the docker image
-      - name: pulling light weight ixn image
-        run: docker pull ajbalogh/ixnetwork:latest
-
       # running a docker
       - name: running ixn docker
-        run: docker run --privileged --tty --detach -p 11009:80 --name ixn ajbalogh/ixnetwork:latest
+        run: docker run hello-world
 
       # checking docker container
       - name: check docker container
