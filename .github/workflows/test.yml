@@ -52,10 +52,6 @@ jobs:
       - name: check docker container
         run: docker container ps -a
 
-      # docker port check
-      - name: port check
-        run: docker port ixn
-
       # updating the release
       - name: Create Release
         id: create_release
