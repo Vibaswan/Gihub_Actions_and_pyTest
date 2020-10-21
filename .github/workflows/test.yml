@@ -82,7 +82,7 @@ jobs:
 
       # running a docker
       - name: running ixn docker
-        run: docker run --privileged --tty --detach --publish 0.0.0.0:11009:80 --name ixn ajbalogh/ixnetwork:latest
+        run: docker run --privileged --tty --detach --publish 11009:80 --name ixn ajbalogh/ixnetwork:latest
 
       # sleep for server to spawn
       - name: slepp for server spawn
@@ -92,7 +92,7 @@ jobs:
       - name: check curl for ixn server
         run:  |
           sudo lsof -i -P -n
-          curl -H "Content-Type: application/json" --trace-ascii - http://0.0.0.0:11009/api/v1/sessions/1/ixnetwork/globalspreferences?includes=autoSaveLocation
+          curl -H "Content-Type: application/json" http://localhost:11009/api/v1/sessions/1/ixnetwork/globals/preferences?includes=autoSaveLocation
 
       # Running the pytest for testing code
       - name: running the unit test
