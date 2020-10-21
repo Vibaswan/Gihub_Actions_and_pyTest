@@ -97,7 +97,7 @@ jobs:
       - name: install curl
         run:  |
           sudo lsof -i -P -n
-          curl -i -H "Accept: application/json" -H "Content-Type: application/json" --trace-ascii - http://0.0.0.0:11009/api/v1/sessions/1/ixnetwork/globalspreferences?includes=autoSaveLocation
+          curl -H "Content-Type: application/json" --trace-ascii - http://0.0.0.0:11009/api/v1/sessions/1/ixnetwork/globalspreferences?includes=autoSaveLocation
 
       # Running the pytest for testing code
       - name: running the unit test
