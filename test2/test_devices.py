@@ -5,6 +5,7 @@ from abstract_open_traffic_generator.config import Config
 from abstract_open_traffic_generator.control import *
 
 
+@pytest.mark.ConfigTest
 def test_device_ipv4_fixed(serializer, api):
     """Test the creation of ipv4 fixed properties
     """

@@ -5,6 +5,7 @@ from abstract_open_traffic_generator.config import *
 from abstract_open_traffic_generator.control import *
 
 
+@pytest.mark.ConfigTest
 def test_flow_tcp(serializer, tx_port, rx_port, b2b_ipv4_devices, api):
     """TCP Flow test traffic configuration
     """

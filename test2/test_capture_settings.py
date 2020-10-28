@@ -4,6 +4,7 @@ from abstract_open_traffic_generator.capture import Capture, BasicFilter, MacAdd
 from abstract_open_traffic_generator.control import *
 
 
+@pytest.mark.ConfigTest
 def test_capture_settings(serializer, api, tx_port):
     """Demonstrates how to configure basic capture settings
     """

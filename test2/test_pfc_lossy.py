@@ -175,7 +175,8 @@ def configure_pfc_lossy (api,
     api.set_config(config)
     return config
 
-def test_start_lossy(serializer, api) :
+
+def test_start_lossy(serializer, api):
     from .conftest import TX_PORT_LOCATION as tx_location
     from .conftest import RX_PORT_LOCATION as rx_location
 
@@ -192,6 +193,7 @@ def test_start_lossy(serializer, api) :
                                  tx_gateway_ip=gw_addr,
                                  rx_gateway_ip=gw_addr)
     print(serializer.json(config))
+
 
 if __name__ == '__main__':
     pytest.main(['-s', __file__])

@@ -5,6 +5,7 @@ from abstract_open_traffic_generator.config import *
 from abstract_open_traffic_generator.control import *
 
 
+@pytest.mark.ConfigTest
 def test_ingress_result_name(tx_port, rx_port, b2b_ipv4_devices, api):
     """
     A unique name that can be used to drill down into flow results.

@@ -5,6 +5,7 @@ from abstract_open_traffic_generator.layer1 import *
 from abstract_open_traffic_generator.control import *
 
 
+@pytest.mark.ConfigTest
 def test_layer1_fcoe(serializer, api, tx_port, rx_port):
     """Test that layer1 fcoe configuration settings are being applied correctly.
     """

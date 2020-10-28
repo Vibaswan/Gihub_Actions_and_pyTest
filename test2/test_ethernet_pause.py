@@ -5,6 +5,7 @@ from abstract_open_traffic_generator.config import *
 from abstract_open_traffic_generator.control import *
 
 
+@pytest.mark.ConfigTest
 def test_ethernet_pause_flows(api, tx_port, rx_port, b2b_ipv4_devices):
     """EthernetPause test traffic configuration
     """

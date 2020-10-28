@@ -5,6 +5,7 @@ from abstract_open_traffic_generator.config import Config
 from abstract_open_traffic_generator.control import *
 
 
+@pytest.mark.ConfigTest
 def test_flow_fields(serializer, api):
     """
     This will test setting values for individual flow packet fields

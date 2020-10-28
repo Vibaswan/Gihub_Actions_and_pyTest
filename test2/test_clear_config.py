@@ -3,6 +3,7 @@ from abstract_open_traffic_generator.control import *
 from abstract_open_traffic_generator.config import *
 
 
+@pytest.mark.ConfigTest
 def test_clear_config(serializer, api):
     """Demonstrates how to clear an IxNetwork session configuration
     """

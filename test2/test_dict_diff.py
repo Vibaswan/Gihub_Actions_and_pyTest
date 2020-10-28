@@ -41,6 +41,8 @@ class Compare(object):
                 d = d.setdefault(key, {})
         d[keys[-1]] = value
 
+
+@pytest.mark.ConfigTest
 def test_recursive_compare():
     first = {
         'a': 1,

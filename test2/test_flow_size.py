@@ -4,6 +4,7 @@ from abstract_open_traffic_generator.config import *
 import abstract_open_traffic_generator.control as control
 
 
+@pytest.mark.ConfigTest
 def test_flow_sizes(serializer, api, tx_port, rx_port, b2b_ipv4_devices):
     """
     This will test supported Flow Size
