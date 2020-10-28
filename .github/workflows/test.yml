@@ -50,6 +50,12 @@ jobs:
           python -m pip install --upgrade pip
           pip install pytest
           pip install requests
+          pip install pyaml
+          pip install pandas
+          pip install dpkt
+          pip install jsonpath-ng
+          pip install abstract-open-traffic-generator
+          pip install ixnetwork-restpy
 
       # checking ports
       - name: check port
