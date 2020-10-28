@@ -102,7 +102,7 @@ jobs:
 
       # Running the pytest for testing code
       - name: running the unit test
-        run: python -m pytest -v -s test2 -m ConfigTest --disable-warning
+        run: python -m pytest -v -s test2 -m ConfigTest --disable-warnings
 
       # updating the release
       - name: Create Release
