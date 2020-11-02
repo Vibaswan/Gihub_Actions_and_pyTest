@@ -19,68 +19,6 @@ jobs:
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
 
-      - uses: jitterbit/get-changed-files@v1
-        id: abc
-        with:
-          format: space-delimited
-          token: ${{ secrets.GITHUB_TOKEN }}
-
-      - name: Printing
-        run: |
-          echo "All:"
-          echo "${{ steps.abc.outputs.all }}"
-          echo "Added:"
-          echo "${{ steps.abc.outputs.added }}"
-          echo "Removed:"
-          echo "${{ steps.abc.outputs.removed }}"
-          echo "Renamed:"
-          echo "${{ steps.abc.outputs.renamed }}"
-          echo "Modified:"
-          echo "${{ steps.abc.outputs.modified }}"
-          echo "Added+Modified:"
-          echo "${{ steps.abc.outputs.added_modified }}"
-
-      - name: Find references
-        id: jira
-        uses: AsasInnab/regex-action@v1
-        with:
-          regex_pattern: 'VERSION'
-          regex_flags: 'gim'
-          search_string: ${{ steps.abc.outputs.modified }}
-
-      - name: Echo JIRA reference
-        run: echo "My JIRA ticket number is ${{ steps.jira.outputs.first_match }}"
-
-      - name: check if statement
-        if: steps.jira.outputs.first_match == 'VERSION'
-        run: echo "if statement true yo hoooooo"
-
-      # checking all the context
-      - name: Dump GitHub context
-        env:
-          GITHUB_CONTEXT: ${{ toJson(github.sha) }}
-        run: echo "$GITHUB_CONTEXT"
-      - name: Dump job context
-        env:
-          JOB_CONTEXT: ${{ toJson(job) }}
-        run: echo "$JOB_CONTEXT"
-      - name: Dump steps context
-        env:
-          STEPS_CONTEXT: ${{ toJson(steps) }}
-        run: echo "$STEPS_CONTEXT"
-      - name: Dump runner context
-        env:
-          RUNNER_CONTEXT: ${{ toJson(runner) }}
-        run: echo "$RUNNER_CONTEXT"
-      - name: Dump strategy context
-        env:
-          STRATEGY_CONTEXT: ${{ toJson(strategy) }}
-        run: echo "$STRATEGY_CONTEXT"
-      - name: Dump matrix context
-        env:
-          MATRIX_CONTEXT: ${{ toJson(matrix) }}
-        run: echo "$MATRIX_CONTEXT"
-
       # checking out my code
       - name: Checkout
         uses: actions/checkout@v2
@@ -111,6 +49,7 @@ jobs:
           pip install pytest
           pip install requests
           pip install pyaml
+          pip install pandas
           pip install dpkt
           pip install jsonpath-ng
           pip install abstract-open-traffic-generator
@@ -163,8 +102,26 @@ jobs:
       - name: running the unit test
         run: python -m pytest -v -s test2 -m ConfigTest --disable-warnings
 
+      # checking which files changed
+      - name: check which files changed
+        uses: jitterbit/get-changed-files@v1
+        id: change
+        with:
+          format: space-delimited
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      # regex matching for to see version got changed or not
+      - name: Find if version file has changes
+        id: regex
+        uses: AsasInnab/regex-action@v1
+        with:
+          regex_pattern: 'VERSION'
+          regex_flags: 'gim'
+          search_string: ${{ steps.change.outputs.modified }}
+
       # updating the release
       - name: Create Release
+        if: steps.regex.outputs.first_match == 'VERSION'
         id: create_release
         uses: actions/create-release@v1
         env:
