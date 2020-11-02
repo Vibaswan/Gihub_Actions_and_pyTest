@@ -53,7 +53,7 @@ jobs:
 
       - name: check if statement
         if: steps.jira.outputs.first_match == 'VERSION'
-        run: echo "if statement true"
+        run: echo "if statement true yo hoooooo"
 
       # checking all the context
       - name: Dump GitHub context
