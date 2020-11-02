@@ -40,9 +40,16 @@ jobs:
           echo "Added+Modified:"
           echo "${{ steps.abc.outputs.added_modified }}"
 
-      - if: contains(steps.abc.outputs.modified, 'VERSION') == 'true'
-        name: check if statement
-        run: echo "test is passing"
+      - name: Find references
+        id: jira
+        uses: AsasInnab/regex-action@v1
+        with:
+          regex_pattern: 'VERSION'
+          regex_flags: 'gim'
+          search_string: ${{ steps.abc.outputs.modified }}
+
+      - name: Echo JIRA reference
+        run: echo "My JIRA ticket number is ${{ steps.jira.outputs.first_match }}"
 
       # checking all the context
       - name: Dump GitHub context
