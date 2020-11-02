@@ -40,9 +40,9 @@ jobs:
           echo "Added+Modified:"
           echo "${{ steps.abc.outputs.added_modified }}"
 
-      -name: check if statement
-       if: contains(steps.abc.outputs.modified, 'VERSION') == 'true'
-       run: echo "test is passing"
+      - if: contains(steps.abc.outputs.modified, 'VERSION') == 'true'
+        name: check if statement
+        run: echo "test is passing"
 
       # checking all the context
       - name: Dump GitHub context
