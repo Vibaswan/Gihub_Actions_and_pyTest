@@ -51,6 +51,10 @@ jobs:
       - name: Echo JIRA reference
         run: echo "My JIRA ticket number is ${{ steps.jira.outputs.first_match }}"
 
+      - name: check if statement
+        if: steps.jira.outputs.first_match == 'VERSION'
+        run: echo "if statement true"
+
       # checking all the context
       - name: Dump GitHub context
         env:
