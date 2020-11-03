@@ -25,6 +25,7 @@ def test_device_ipv4_fixed(serializer, api):
     api.set_state(State(ConfigState(config=config, state='set')))
 
 
+@pytest.mark.ConfigTest
 def test_device_ipv4value_list(serializer, api):
     """Test the creation of ipv4 value list properties
     """

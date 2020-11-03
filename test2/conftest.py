@@ -2,7 +2,7 @@ import pytest
 import json
 import yaml
 
-API_SERVER = 'localhost'
+API_SERVER = '10.66.44.243'
 API_SERVER_PORT = 11009
 # TX_PORT_LOCATION = '10.39.35.12;02;13'
 # RX_PORT_LOCATION = '10.39.35.12;02;14'
@@ -195,7 +195,7 @@ def b2b_port_flow_config(options, tx_port, rx_port):
         Size, Rate, Duration, FixedPackets, Header, Ethernet
 
     endpoint = PortTxRx(tx_port_name=tx_port.name,
-                        rx_port_names=[rx_port.name])
+                        rx_port_name=rx_port.name)
     flow = Flow(name='Port Flow',
                 tx_rx=TxRx(endpoint),
                 packet=[Header(Ethernet())],

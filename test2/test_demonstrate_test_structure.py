@@ -71,7 +71,6 @@ def flow_configs(port_configs):
     return port_configs
 
 
-@pytest.mark.ConfigTest
 def test_fixtures(flow_configs, api):
     """Iterate through the flow configs using each config to run a test.
     """
