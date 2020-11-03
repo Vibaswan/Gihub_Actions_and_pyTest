@@ -2,7 +2,7 @@ import pytest
 import json
 import yaml
 
-API_SERVER = '10.66.44.243'
+API_SERVER = 'localhost'
 API_SERVER_PORT = 11009
 # TX_PORT_LOCATION = '10.39.35.12;02;13'
 # RX_PORT_LOCATION = '10.39.35.12;02;14'
