@@ -83,7 +83,7 @@ jobs:
 
       # updating the release
       - name: Create Release
-        if: steps.regex.outputs.first_match == 'VERSION' and matrix.python-version} == '38'
+        if: steps.regex.outputs.first_match == 'VERSION' && matrix.python-version == '38'
         id: create_release
         uses: actions/create-release@v1
         env:
