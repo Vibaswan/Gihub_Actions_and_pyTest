@@ -86,10 +86,10 @@ jobs:
         if: steps.regex.outputs.first_match == 'VERSION' and matrix.python-version} == '38'
         id: create_release
         uses: actions/create-release@v1
-          env:
-            GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          with:
-            tag_name: v${{ steps.get_version.outputs.version }}
-            release_name: Release ${{ steps.get_version.outputs.version }}
-            draft: false
-            prerelease: false
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: v${{ steps.get_version.outputs.version }}
+          release_name: Release ${{ steps.get_version.outputs.version }}
+          draft: false
+          prerelease: false
