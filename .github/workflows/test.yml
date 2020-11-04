@@ -62,7 +62,7 @@ jobs:
 
       # Running the pytest for testing code
       - name: running the unit test
-        run: ${{steps.path.outputs.pythonv}} -m pytest -s -v test2 --disable-warnings
+        run: ${{steps.path.outputs.pythonv}} -m pytest -s -v test --disable-warnings
 
       # checking which files changed
       - name: check which files changed
