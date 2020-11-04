@@ -61,7 +61,7 @@ jobs:
 
       # Running the pytest for testing code
       - name: running the unit test
-        run: ${{steps.path.outputs.pythonv}} -m pytest -s -v tests
+        run: ${{steps.path.outputs.pythonv}} -m pytest -s -v test2 -m ConfigTest --disable-warnings
 
       # checking which files changed
       - name: check which files changed
