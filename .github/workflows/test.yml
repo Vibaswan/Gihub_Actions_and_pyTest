@@ -49,15 +49,15 @@ jobs:
       # Installing some dependencies
       - name: Install dependencies
         run: |
-          ${{steps.paths.outputs.pythonv}} -m pip install --upgrade pip
-          ${{steps.paths.outputs.pythonv}} -m pip install pytest
-          ${{steps.paths.outputs.pythonv}} -m pip install requests
-          ${{steps.paths.outputs.pythonv}} -m pip install pyaml
-          ${{steps.paths.outputs.pythonv}} -m pip install pandas
-          ${{steps.paths.outputs.pythonv}} -m pip install dpkt
-          ${{steps.paths.outputs.pythonv}} -m pip install jsonpath-ng
-          ${{steps.paths.outputs.pythonv}} -m pip install abstract-open-traffic-generator
-          ${{steps.paths.outputs.pythonv}} -m pip install ixnetwork-restpy
+          ${{steps.path.outputs.pythonv}} -m pip install --upgrade pip
+          ${{steps.path.outputs.pythonv}} -m pip install pytest
+          ${{steps.path.outputs.pythonv}} -m pip install requests
+          ${{steps.path.outputs.pythonv}} -m pip install pyaml
+          ${{steps.path.outputs.pythonv}} -m pip install pandas
+          ${{steps.path.outputs.pythonv}} -m pip install dpkt
+          ${{steps.path.outputs.pythonv}} -m pip install jsonpath-ng
+          ${{steps.path.outputs.pythonv}} -m pip install abstract-open-traffic-generator
+          ${{steps.path.outputs.pythonv}} -m pip install ixnetwork-restpy
 
       # Running the pytest for testing code
       - name: running the unit test
