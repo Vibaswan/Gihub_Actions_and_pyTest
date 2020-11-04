@@ -103,7 +103,7 @@ jobs:
 
       # Running the pytest for testing code
       - name: running the unit test
-        run: python -m pytest -s -v tests
+        run: python -m pytest -s -v test2 -m ConfigTest --disable-warnings
 
       # checking which files changed
       - name: check which files changed
