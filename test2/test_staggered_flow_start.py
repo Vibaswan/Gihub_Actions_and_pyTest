@@ -5,6 +5,7 @@ from abstract_open_traffic_generator.flow import *
 from abstract_open_traffic_generator.control import *
 
 
+@pytest.mark.skip(reason='Unable to create endpoint sets. Verify the endpoints are valid.')
 def test_staggered_flow_start(serializer, api, tx_port, rx_port):
     """Demonstrates how to incrementally start transmit on flows
     """
