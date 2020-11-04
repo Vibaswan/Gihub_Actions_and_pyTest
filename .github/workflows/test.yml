@@ -14,7 +14,7 @@ jobs:
   # This workflow contains a single job called "build"
   build:
     # The type of runner that the job will run on
-    runs-on: ubuntu-latest
+    runs-on: [self-hosted, windows, x64]
     strategy:
       matrix:
         python-version: [27, 38]
@@ -41,10 +41,6 @@ jobs:
       - name: Run a one-line script
         run: echo Hello, world!
 
-      # Runs a simple pwd command
-      - name: Run pwd command
-        run: pwd
-
       # Installing some dependencies
       - name: Install dependencies
         run: |
@@ -57,49 +53,6 @@ jobs:
           pip install jsonpath-ng
           pip install abstract-open-traffic-generator
           pip install ixnetwork-restpy
-
-      # checking ports
-      - name: check port
-        run: sudo lsof -i -P -n
-
-      # setting binding to ipv4 only i guess
-      - name: bind ipv4
-        run: sudo sysctl -w net.ipv6.conf.all.forwarding=1
-
-      # checking ports again
-      - name: check ports again
-        run: sudo lsof -i -P -n
-
-      # disable firewall
-      - name: disable firewall
-        run: |
-          sudo ufw status
-          sudo ufw disable
-
-      # logging into dockerHub
-      - name: Logging into DockerHub
-        uses: docker/login-action@v1
-        with:
-          username: ${{ secrets.DOCKERHUB_USERNAME }}
-          password: ${{ secrets.DOCKERHUB_TOKEN }}
-
-      # pulling the docker image
-      - name: pulling light weight ixn image
-        run: docker pull ajbalogh/ixnetwork:latest
-
-      # running a docker
-      - name: running ixn docker
-        run: docker run --privileged --tty --detach --publish 11009:80 --name ixn ajbalogh/ixnetwork:latest
-
-      # sleep for server to spawn
-      - name: slepp for server spawn
-        run: sleep 30
-
-      # check curl
-      - name: check curl for ixn server
-        run:  |
-          sudo lsof -i -P -n
-          curl -H "Content-Type: application/json" http://localhost:11009/api/v1/sessions/1/ixnetwork/globals/preferences?includes=autoSaveLocation
 
       # Running the pytest for testing code
       - name: running the unit test

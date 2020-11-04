@@ -20,7 +20,7 @@ def test_print_2():
 
 
 def test_docker_server():
-    url = 'http://localhost:11009/api/v1/sessions/1/ixnetwork/globals/preferences?includes=autoSaveLocation'
+    url = 'http://localhost:11149/api/v1/sessions/1/ixnetwork/globals/preferences?includes=autoSaveLocation'
     Headers = {'content-type': 'application/json'}
     response = requests.get(url=url, headers=Headers, verify={})
     print(response.json())
