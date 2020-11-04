@@ -83,13 +83,13 @@ jobs:
 
       # updating the release
       - name: Create Release
-        if: steps.regex.outputs.first_match == 'VERSION'
+        if: steps.regex.outputs.first_match == 'VERSION' and matrix.python-version} == '38'
         id: create_release
-        uses: svenstaro/upload-release-action@v2
-        with:
-          repo_token: ${{ secrets.GITHUB_TOKEN }}
-          file: ${{ github.ref }}
-          tag: v${{ steps.get_version.outputs.version }}
-          release_name: Release ${{ steps.get_version.outputs.version }}
-          overwrite: true
-          prerelease: false
+        uses: actions/create-release@v1
+          env:
+            GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          with:
+            tag_name: v${{ steps.get_version.outputs.version }}
+            release_name: Release ${{ steps.get_version.outputs.version }}
+            draft: false
+            prerelease: false
