@@ -85,11 +85,10 @@ jobs:
       - name: Create Release
         if: steps.regex.outputs.first_match == 'VERSION'
         id: create_release
-        uses: actions/create-release@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        uses: svenstaro/upload-release-action@v2
         with:
-          tag_name: v${{ steps.get_version.outputs.version }}
+          repo_token: ${{ secrets.GITHUB_TOKEN }}
+          tag: v${{ steps.get_version.outputs.version }}
           release_name: Release ${{ steps.get_version.outputs.version }}
-          draft: false
+          overwrite: true
           prerelease: false
