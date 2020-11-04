@@ -58,10 +58,11 @@ jobs:
           ${{steps.path.outputs.pythonv}} -m pip install jsonpath-ng
           ${{steps.path.outputs.pythonv}} -m pip install abstract-open-traffic-generator
           ${{steps.path.outputs.pythonv}} -m pip install ixnetwork-restpy
+          ${{steps.path.outputs.pythonv}} -m pip install scapy
 
       # Running the pytest for testing code
       - name: running the unit test
-        run: ${{steps.path.outputs.pythonv}} -m pytest -s -v test2 -m ConfigTest --disable-warnings
+        run: ${{steps.path.outputs.pythonv}} -m pytest -s -v test2 --disable-warnings
 
       # checking which files changed
       - name: check which files changed
