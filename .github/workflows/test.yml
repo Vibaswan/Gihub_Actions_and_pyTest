@@ -61,7 +61,7 @@ jobs:
 
       # Running the pytest for testing code
       - name: running the unit test
-        run: python -m pytest -s -v tests
+        run: ${{steps.path.outputs.pythonv}} -m pytest -s -v tests
 
       # checking which files changed
       - name: check which files changed
