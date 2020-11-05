@@ -82,15 +82,14 @@ jobs:
           search_string: ${{ steps.change.outputs.modified }}
 
       # getting latest release
-      - name: getting the release
-        id: latest_release
-        uses: pozetroninc/github-action-get-latest-release@master
+      - id: fetch-latest-release
+        uses: thebritican/fetch-latest-release@v1
         with:
-          repository: Vibaswan/Github_Actions_and_pyTest
+          github_token: ${{ secrets.GITHUB_TOKEN }}
 
       # printing release
       - name: print release
-        run: echo "realease ${{steps.latest_release.outputs.release}}"
+        run: echo "realease ${{steps.latest_release.outputs.tag_name}}"
 
       # updating the release
       - name: Create Release
