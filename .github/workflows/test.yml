@@ -76,6 +76,7 @@ jobs:
 
       # regex matching for to see version got changed or not
       - name: Find if version file has changes
+        if: github.event_name != 'repository_dispatch'
         id: regex
         uses: AsasInnab/regex-action@v1
         with:
@@ -85,7 +86,7 @@ jobs:
 
       # updating the release
       - name: Create Release
-        if: steps.regex.outputs.first_match == 'VERSION'
+        if: steps.regex.outputs.first_match == 'VERSION' && github.event_name != 'repository_dispatch'
         id: create_release
         uses: actions/create-release@v1
         env:
