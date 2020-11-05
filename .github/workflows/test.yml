@@ -90,7 +90,7 @@ jobs:
 
       # printing release
       - name: print release
-        run: echo "realease ${{steps.latest_release.outputs.release"
+        run: echo "realease ${{steps.latest_release.outputs.release}}"
 
       # updating the release
       - name: Create Release
