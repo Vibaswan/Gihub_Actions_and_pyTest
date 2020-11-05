@@ -82,14 +82,16 @@ jobs:
           search_string: ${{ steps.change.outputs.modified }}
 
       # getting latest release
-      - id: fetch-latest-release
-        uses: thebritican/fetch-latest-release@v2
+      - name: fetch latest tag
+        id: fetch-latest-release
+        uses: abatilo/release-info-action@v1.3.0
         with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
+          owner: abatilo
+          repo: release-info-action
 
       # printing release
       - name: print release
-        run: echo "realease ${{steps.latest_release.outputs.tag_name}}"
+        run: echo "realease ${{steps.latest_release.outputs.latest_tag}}"
 
       # updating the release
       - name: Create Release
