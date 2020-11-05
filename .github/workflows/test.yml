@@ -86,8 +86,8 @@ jobs:
         id: fetch-latest-release
         uses: abatilo/release-info-action@v1.3.0
         with:
-          owner: abatilo
-          repo: release-info-action
+          owner: Vibaswan
+          repo: Gihub_Actions_and_pyTest
 
       # printing release
       - name: print release
