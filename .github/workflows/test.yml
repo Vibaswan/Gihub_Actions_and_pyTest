@@ -81,26 +81,15 @@ jobs:
           regex_flags: 'gim'
           search_string: ${{ steps.change.outputs.modified }}
 
-      # getting latest release
-      - name: fetch latest tag
-        id: fetch-latest-release
-        uses: pozetroninc/github-action-get-latest-release@master
-        with:
-          repository: RedisTimeSeries/RedisTimeSeries
-
-      # printing release
-      - name: print release
-        run: echo "realease ${{steps.latest_release.outputs.release}}"
-
       # updating the release
       - name: Create Release
-        if: steps.regex.outputs.first_match == 'VERSION' && matrix.python-version == '38'
+        if: steps.regex.outputs.first_match == 'VERSION'
         id: create_release
         uses: actions/create-release@v1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          tag_name: v${{ steps.get_version.outputs.version }}
-          release_name: Release ${{ steps.get_version.outputs.version }}
+          tag_name: v${{ steps.get_version.outputs.version }}-python_${{matrix.python-version}}
+          release_name: Release ${{ steps.get_version.outputs.version }}-python_${{matrix.python-version}}
           draft: false
           prerelease: false
