@@ -84,14 +84,13 @@ jobs:
       # getting latest release
       - name: fetch latest tag
         id: fetch-latest-release
-        uses: abatilo/release-info-action@v1.3.0
+        uses: pozetroninc/github-action-get-latest-release@master
         with:
-          owner: Vibaswan
-          repo: Gihub_Actions_and_pyTest
+          repository: RedisTimeSeries/RedisTimeSeries
 
       # printing release
       - name: print release
-        run: echo "realease ${{steps.latest_release.outputs.latest_tag}}"
+        run: echo "realease ${{steps.latest_release.outputs.release}}"
 
       # updating the release
       - name: Create Release
