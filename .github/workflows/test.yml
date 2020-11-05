@@ -81,6 +81,17 @@ jobs:
           regex_flags: 'gim'
           search_string: ${{ steps.change.outputs.modified }}
 
+      # getting latest release
+      - name: getting the release
+        id: latest_release
+        uses: pozetroninc/github-action-get-latest-release@master
+        with:
+          repository: Vibaswan/Github_Actions_and_pyTest
+
+      # printing release
+      - name: print release
+        run: echo "realease ${{steps.latest_release.outputs.release"
+
       # updating the release
       - name: Create Release
         if: steps.regex.outputs.first_match == 'VERSION' && matrix.python-version == '38'
