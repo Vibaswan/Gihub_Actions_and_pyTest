@@ -19,6 +19,10 @@ def test_print_2():
     print('test 2 complete!!!!!!')
 
 
+def test_print_3():
+    print('test 3 complete!!!!!!')
+
+
 def test_docker_server():
     url = 'https://10.39.47.41:11149/api/v1/sessions/1/ixnetwork/globals/preferences?includes=autoSaveLocation'
     Headers = {'content-type': 'application/json'}
