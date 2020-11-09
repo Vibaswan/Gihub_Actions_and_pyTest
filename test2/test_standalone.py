@@ -12,8 +12,8 @@ import abstract_open_traffic_generator.result as result
 from ixnetwork_open_traffic_generator.ixnetworkapi import IxNetworkApi
 import pandas
 
-tx_port = port.Port(name='Tx Port', location='10.39.35.12;09;01')
-rx_port = port.Port(name='Rx Port', location='10.39.35.12;09;02')
+tx_port = port.Port(name='Tx Port', location='10.39.35.12;11;03')
+rx_port = port.Port(name='Rx Port', location='10.39.35.12;11;04')
 flow = flow.Flow(name='Tx Port to Rx Port Flow',
                  tx_rx=flow.TxRx(
                      flow.PortTxRx(tx_port_name=tx_port.name,
@@ -32,7 +32,7 @@ config = config.Config(ports=[tx_port, rx_port],
                        options=config.Options(port_options=port.Options(
                            location_preemption=True)))
 
-api = IxNetworkApi(address='localhost', port=11149)
+api = IxNetworkApi(address='10.39.47.41', port=11149)
 api.set_state(control.State(control.ConfigState(config=config, state='set')))
 state = control.State(control.FlowTransmitState(state='start'))
 api.set_state(state)
