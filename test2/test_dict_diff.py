@@ -63,7 +63,7 @@ def test_recursive_compare():
     assert(diff['c']['d'] == 3)
 
 
-@pytest.mark.skip(reason='failing')
+@pytest.mark.skip(reason='IndexError: list index out of range')
 def test_obj_compare():
     a = lambda: None
     a.name = 'asdf'

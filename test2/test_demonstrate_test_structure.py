@@ -71,7 +71,7 @@ def flow_configs(port_configs):
     return port_configs
 
 
-@pytest.mark.skip(reason='failing')
+@pytest.mark.skip(reason='cannot import name "OneHundredGbe" from "abstract_open_traffic_generator.layer1"')
 def test_fixtures(flow_configs, api):
     """Iterate through the flow configs using each config to run a test.
     """
