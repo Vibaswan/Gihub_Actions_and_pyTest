@@ -70,7 +70,6 @@ class Vport(object):
         self._create_capture()
         self._set_location()
         self._set_layer1()
-        self._connect()
 
     def _import(self, imports):
         if len(imports) > 0:
@@ -161,53 +160,84 @@ class Vport(object):
 
     def _add_hosts(self, HostReadyTimeout):
         chassis = self._api._ixnetwork.AvailableHardware.Chassis
-        ip_addresses = []
+        add_addresses = []
+        check_addresses = []
         for port in self._api.config.ports:
             if port.location is not None and ';' in port.location:
                 chassis_address = port.location.split(';')[0]
                 chassis.find(Hostname='^(%s)$' % chassis_address)
                 if len(chassis) == 0:
-                    ip_addresses.append(chassis_address)
-        ip_addresses = set(ip_addresses)
-        if len(ip_addresses) == 0:
-            return
-        self._api._ixnetwork.info('Adding location hosts [%s]...' %
-                                  ', '.join(ip_addresses))
-        for ip_address in ip_addresses:
-            chassis.add(Hostname=ip_address)
+                    add_addresses.append(chassis_address)
+                check_addresses.append(chassis_address)
+        add_addresses = set(add_addresses)
+        check_addresses = set(check_addresses)
+        if len(add_addresses) > 0:
+            self._api.info('Adding location hosts [%s]...' %
+                                    ', '.join(add_addresses))
+            for add_address in add_addresses:
+                chassis.add(Hostname=add_address)
         start_time = time.time()
+        self._api.info('Checking state of location hosts [%s]...' %
+                                ', '.join(check_addresses))
         while True:
-            chassis.find(Hostname='^(%s)$' % '|'.join(ip_addresses),
+            chassis.find(Hostname='^(%s)$' % '|'.join(check_addresses),
                          State='^ready$')
-            if len(chassis) == len(ip_addresses):
+            if len(chassis) == len(check_addresses):
                 break
             if time.time() - start_time > HostReadyTimeout:
                 raise RuntimeError(
                     'After %s seconds, not all location hosts [%s] are reachable'
-                    % (HostReadyTimeout, ', '.join(ip_addresses)))
+                    % (HostReadyTimeout, ', '.join(check_addresses)))
             time.sleep(2)
 
     def _set_location(self):
+        location_supported = True
+        try:
+            self._api._ixnetwork._connection._options(self._api._ixnetwork.href + '/locations')
+        except:
+            location_supported = False
+
         locations = []
         self._add_hosts(10)
         vports = self._api.select_vports()
         imports = []
+        clear_locations = []
         for port in self._api.config.ports:
             vport = vports[port.name]
             location = getattr(port, 'location', None)
-            if vport['location'] == location and vport[
-                    'connectionState'].startswith('connectedLink'):
-                continue
+            if location_supported is True:
+                if vport['location'] == location and vport[
+                        'connectionState'].startswith('connectedLink'):
+                    continue
+            else:
+                if len(vport['connectedTo']) > 0 and vport[
+                        'connectionState'].startswith('connectedLink'):
+                    continue
             self._api.ixn_objects[port.name] = vport['href']
-            vport = {'xpath': vports[port.name]['xpath'], 'location': location}
+            vport = {'xpath': vports[port.name]['xpath']}
+            if location_supported is True:
+                vport['location'] = location
+            else:
+                if location is not None:
+                    xpath = self._api.select_chassis_card_port(location)
+                    vport['connectedTo'] = xpath
+                else:
+                    vport['connectedTo'] = ''
             imports.append(vport)
             if location is not None and len(location) > 0:
+                clear_locations.append(location)
                 locations.append(port.name)
-        self._api._ixnetwork.info('Connecting locations [%s]...' %
-                                  ', '.join(locations))
+        if len(locations) == 0:
+            return
+        self._clear_ownership(clear_locations)
+        self._api.info('Connecting locations [%s]...' %
+                                ', '.join(locations))
         self._import(imports)
-        self._api._ixnetwork.info('Checking location state [%s]...' %
+        self._api.info('Checking location state [%s]...' %
                                   ', '.join(locations))
+        self._api._vport.find(ConnectionState='^(?!connectedLink).*$')
+        if len(self._api._vport) > 0:
+            self._api._vport.ConnectPorts()
         start = time.time()
         timeout = 30
         while True:
@@ -218,8 +248,10 @@ class Vport(object):
             if time.time() - start > timeout:
                 raise RuntimeError(
                     'After %s seconds, not all locations [%s] are reachable' %
-                    (timeout, ', '.join(locations)))
+                    (timeout, ', '.join([vport.Name for vport in self._api._vport])))
             time.sleep(2)
+        for vport in self._api._vport.find(ConnectionState='^(?!connectedLinkUp).*$'):
+            self._api.warning('%s %s' % (vport.Name, vport.ConnectionState))
 
     def _set_layer1(self):
         """Set the /vport/l1Config/... properties
@@ -251,7 +283,9 @@ class Vport(object):
     def _set_l1config_properties(self, vport, layer1, imports):
         """Set vport l1config properties
         """
-        if vport['connectionState'] not in ['connectedLinkUp', 'connectedLinkDown']:
+        if vport['connectionState'] not in [
+                'connectedLinkUp', 'connectedLinkDown'
+        ]:
             return
         self._set_vport_type(vport, layer1, imports)
         self._set_card_resource_mode(vport, layer1, imports)
@@ -266,7 +300,8 @@ class Vport(object):
             'speed_25_gbps': 'twentyfivegig',
             'speed_40_gbps': 'fortygig',
             'speed_50_gbps': 'fiftygig',
-            'speed_100_gbps': '^(?!.*(twohundredgig|fourhundredgig)).*hundredgig.*$',
+            'speed_100_gbps':
+            '^(?!.*(twohundredgig|fourhundredgig)).*hundredgig.*$',
             'speed_200_gbps': 'twohundredgig',
             'speed_400_gbps': 'fourhundredgig'
         }
@@ -275,16 +310,16 @@ class Vport(object):
             mode = speed_mode_map[layer1.speed]
             card = self._api.select_chassis_card(vport)
             for available_mode in card['availableModes']:
-                if re.match(mode, available_mode.lower()) is not None:
+                if re.search(mode, available_mode.lower()) is not None:
                     aggregation_mode = available_mode
                     break
-        if aggregation_mode is not None and aggregation_mode != card['aggregationMode']:
-            imports.append(
-                {
-                    'xpath': card['xpath'], 
-                    'aggregationMode': aggregation_mode            
-                }
-            )
+        if aggregation_mode is not None and aggregation_mode != card[
+                'aggregationMode']:
+            self._api.info('Setting %s layer1 mode' % aggregation_mode)
+            imports.append({
+                'xpath': card['xpath'],
+                'aggregationMode': aggregation_mode
+            })
 
     def _set_auto_negotiation(self, vport, layer1, imports):
         if layer1.speed.endswith('_mbps') or layer1.speed == 'speed_1_gbps':
@@ -302,8 +337,7 @@ class Vport(object):
         be switched to a type without the Fcoe extension.
         """
         fcoe = False
-        if hasattr(layer1,
-                   'flow_control') and layer1.flow_control is not None:
+        if hasattr(layer1, 'flow_control') and layer1.flow_control is not None:
             fcoe = True
         vport_type = vport['type']
         elegible_fcoe_vport_types = [
@@ -349,7 +383,7 @@ class Vport(object):
             advertise
         }
         self._add_l1config_import(vport, proposed_import, imports)
-    
+
     def _add_l1config_import(self, vport, proposed_import, imports):
         type = vport['type'].replace('Fcoe', '')
         l1config = vport['l1Config'][type]
@@ -368,17 +402,15 @@ class Vport(object):
             layer1.ieee_media_defaults,
             'speed':
             Vport._SPEED_MAP[layer1.speed],
-            'enableAutoNegotiation':
-            layer1.auto_negotiate,
-            'enableRsFec':
-            layer1.auto_negotiation.rs_fec,
-            'linkTraining':
-            layer1.auto_negotiation.link_training,
+            'enableAutoNegotiation': layer1.auto_negotiate,
+            'enableRsFec': None if layer1.auto_negotiation is None else layer1.auto_negotiation.rs_fec,
+            'linkTraining': None if layer1.auto_negotiation is None else layer1.auto_negotiation.link_training
         }
         self._add_l1config_import(vport, proposed_import, imports)
 
     def _reset_auto_negotiation(self, vport, layer1, imports):
-        if layer1.speed.endswith('_mbps') is False and layer1.speed != 'speed_1_gbps':
+        if layer1.speed.endswith(
+                '_mbps') is False and layer1.speed != 'speed_1_gbps':
             imports.append({
                 'xpath':
                 vport['xpath'] + '/l1Config/' +
@@ -416,16 +448,21 @@ class Vport(object):
             }
             imports.append(fcoe)
 
-    def _connect(self):
-        self._ixn_vport.find(ConnectionState='^((?!connectedLink).)*$')
+    def _clear_ownership(self, locations):
         try:
             force_ownership = self._api.config.options.port_options.location_preemption
         except:
             force_ownership = False
-        try:
-            self._ixn_vport.ConnectPorts(force_ownership)
-        except Exception as e:
-            self._api.add_error(e)
+        if force_ownership is True:
+            hrefs = {}
+            chassis = self._api._ixnetwork.AvailableHardware.Chassis
+            for location in locations:
+                clp = location.split(';')
+                chassis.find(Hostname=clp[0])
+                if len(chassis) == 1:
+                    hrefs[location] = '%s/card/%s/port/%s' % (
+                        chassis.href, abs(int(clp[1])), abs(int(clp[2])))
+            self._api.clear_ownership(hrefs)
 
     def _set_result_value(self,
                           row,
