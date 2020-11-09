@@ -20,7 +20,7 @@ def test_print_2():
 
 
 def test_print_3():
-    print('test 3 complete!!!!!!')
+    print('test 3 is passing!!!!!!')
 
 
 def test_docker_server():
