@@ -12,8 +12,8 @@ def test_json_config(serializer, api, tx_port, rx_port, b2b_devices):
     api.set_state(state)
 
 
-# @pytest.mark.skip(reason='ixnetwork_restpy.errors.NotFoundError: The requested resource /api/v1/sessions/1/'
-#                          'ixnetwork/topology/2/deviceGroup/1 cannot be found')
+@pytest.mark.skip(reason='ixnetwork_restpy.errors.NotFoundError: The requested resource /api/v1/sessions/1/'
+                         'ixnetwork/topology/2/deviceGroup/1 cannot be found')
 def test_dict_config(serializer, api, tx_port, rx_port, b2b_devices):
     config = Config(ports=[tx_port, rx_port], devices=b2b_devices)
     state = State(ConfigState(config=config, state='set'))
@@ -21,7 +21,7 @@ def test_dict_config(serializer, api, tx_port, rx_port, b2b_devices):
     api.set_state(state)
 
 
-# @pytest.mark.skip(reason='BadRequestError: Unable to remove /topology:1/deviceGroup:4')
+@pytest.mark.skip(reason='BadRequestError: Unable to remove /topology:1/deviceGroup:4')
 def test_config(serializer, api, tx_port, rx_port, b2b_devices):
     config = Config(ports=[tx_port, rx_port], devices=b2b_devices)
     state = State(ConfigState(config=config, state='set'))
