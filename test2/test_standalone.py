@@ -32,7 +32,7 @@ config = config.Config(ports=[tx_port, rx_port],
                        options=config.Options(port_options=port.Options(
                            location_preemption=True)))
 
-api = IxNetworkApi(address='localhost', port=11149)
+api = IxNetworkApi(address='10.39.47.41', port=11149)
 api.set_state(control.State(control.ConfigState(config=config, state='set')))
 state = control.State(control.FlowTransmitState(state='start'))
 api.set_state(state)
