@@ -68,7 +68,7 @@ jobs:
 
       # checking which files changed
       - name: check which files changed
-        if: github.event_name != 'repository_dispatch'
+        if: github.event_name != 'repository_dispatch' && github.event_name != 'pull_request'
         uses: jitterbit/get-changed-files@v1
         id: change
         with:
