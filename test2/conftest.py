@@ -55,9 +55,13 @@ def api():
     IxNetwork API Server to use for the api test fixture
     """
     from ixnetwork_open_traffic_generator.ixnetworkapi import IxNetworkApi
+    from abstract_open_traffic_generator.config import Config
+    from abstract_open_traffic_generator.control import State, ConfigState
     api = IxNetworkApi(API_SERVER,
                        port=API_SERVER_PORT,
                        license_servers=LICENSE_SERVERS)
+    config = Config()
+    api.set_state(State(ConfigState(config=config, state='set')))
     yield api
     if api.assistant is not None:
         api.assistant.Session.remove()
