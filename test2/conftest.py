@@ -62,9 +62,9 @@ def api():
                        license_servers=LICENSE_SERVERS)
     config = Config()
     api.set_state(State(ConfigState(config=config, state='set')))
-    yield api
-    if api.assistant is not None:
-        api.assistant.Session.remove()
+    return api
+    # if api.assistant is not None:
+    #     api.assistant.Session.remove()
 
 
 @pytest.fixture(scope='session')
