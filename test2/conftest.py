@@ -60,11 +60,11 @@ def api():
     api = IxNetworkApi(API_SERVER,
                        port=API_SERVER_PORT,
                        license_servers=LICENSE_SERVERS)
+    yield api
     config = Config()
     api.set_state(State(ConfigState(config=config, state='set')))
-    return api
-    # if api.assistant is not None:
-    #     api.assistant.Session.remove()
+    if api.assistant is not None:
+        api.assistant.Session.remove()
 
 
 @pytest.fixture(scope='session')
