@@ -5,7 +5,7 @@ from abstract_open_traffic_generator.config import *
 from abstract_open_traffic_generator.control import *
 
 
-@pytest.mark.skip(reason='failing')
+# @pytest.mark.skip(reason='failing')
 def test_bgp_speaker(serializer, api):
     """This is the configuration steps in https://github.com/Azure/sonic-mgmt/blob/master/tests/bgp/test_bgp_speaker.py
 

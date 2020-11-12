@@ -7,7 +7,7 @@ from abstract_open_traffic_generator.control import *
 from abstract_open_traffic_generator.result import CaptureRequest
 
 
-@pytest.mark.skip(reason='Following ports are not in capture receive mode')
+# @pytest.mark.skip(reason='Following ports are not in capture receive mode')
 def test_capture_pcap(serializer, api, tx_port, rx_port):
     """Demonstrates how to start capture and get capture results
     """

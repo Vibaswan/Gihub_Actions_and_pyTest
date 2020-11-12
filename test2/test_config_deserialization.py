@@ -4,7 +4,7 @@ from abstract_open_traffic_generator.config import Config
 from abstract_open_traffic_generator.control import *
 
 
-@pytest.mark.ConfigTest
+# @pytest.mark.ConfigTest
 def test_json_config(serializer, api, tx_port, rx_port, b2b_devices):
     config = Config(ports=[tx_port, rx_port], devices=b2b_devices)
     state = State(ConfigState(config=config, state='set'))
