@@ -1,0 +1,25 @@
+#┌───────────── minute (0 - 59)
+#│ ┌───────────── hour (0 - 23)
+#│ │ ┌───────────── day of the month (1 - 31)
+#│ │ │ ┌───────────── month (1 - 12)
+#│ │ │ │ ┌───────────── day of the week (0 - 6)
+#│ │ │ │ │                                   
+#│ │ │ │ │
+#│ │ │ │ │
+#* * * * *
+
+
+name: "Close stale issues"
+on:
+  schedule:
+  - cron: "0 0 * * *"
+
+jobs:
+  stale:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/stale@v1.1.0
+      with:
+        repo-token: ${{ secrets.GITHUB_TOKEN }}
+        stale-issue-message: 'Message to comment on stale issues. If none provided, will not mark issues stale'
+        stale-pr-message: 'Message to comment on stale PRs. If none provided, will not mark PRs stale'
