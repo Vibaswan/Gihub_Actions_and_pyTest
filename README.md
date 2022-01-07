@@ -78,12 +78,14 @@ These runners are provided by GitHub itself to know more about runner click on t
       id: get_version
       run: echo "::set-output name=version::$(cat VERSION)"
 ```
-Each job has a list of steps which are executed sequentially. Now inside steps we do the tasts we wan tto perform for the job.
-`uses` is used if you are using a tast which is already supported by GitHub and you are just using the for you benefit, there are a lot of awesome actions which you can find in the [Github Action Marketplace](https://github.com/marketplace?type=actions).
+
+Each job has a list of steps which are executed sequentially. Now inside steps we do the tasts we wan to perform for the job.
+`uses` is used if you are using a task which is already supported by GitHub and you are just using the for you benefit, there are a lot of awesome actions which you can find in the [Github Action Marketplace](https://github.com/marketplace?type=actions).
  
 You can also write you own steps and use `run` attribute the run the command you want, for multiple commands we use `run: |`.
 
 You can even check and condition and skip a step or task with `if:`. Please see the below sample:
+
 ```yml
 name: check which files changed
 if: github.event_name == 'push'
@@ -94,7 +96,7 @@ with:
   token: ${{ secrets.GITHUB_TOKEN }}
 ```
 
-I have some added some basic samples in the folder [GitHub Action Samples](https://github.com/Vibaswan/Gihub_Actions_introduction/tree/main/Github_action_samples).
-Have a look it will help you understand more.
+I have added some basic samples in the folder [GitHub Action Samples](https://github.com/Vibaswan/Gihub_Actions_introduction/tree/main/Github_action_samples).
+Have a look at it, will help you understand more.
 
 ## Hope this helped you !! :sparkles::sparkles:
