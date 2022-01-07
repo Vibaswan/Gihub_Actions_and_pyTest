@@ -20,7 +20,7 @@ def test_print_2():
 
 
 def test_docker_server():
-    url = 'https://10.39.47.41:11149/api/v1/sessions/1/ixnetwork/globals/preferences?includes=autoSaveLocation'
+    url = 'https://www.google.com/'
     Headers = {'content-type': 'application/json'}
     response = requests.get(url=url, headers=Headers, verify={})
     print(response.json())
