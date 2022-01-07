@@ -19,11 +19,11 @@ def test_print_2():
     print('test 2 complete!!!!!!')
 
 
-def test_docker_server():
+def test_requests_module():
     url = 'https://www.google.com/'
     Headers = {'content-type': 'application/json'}
     response = requests.get(url=url, headers=Headers, verify={})
-    print(response.json())
+    print(response)
 
 
 if __name__ == '__main__':
