@@ -41,7 +41,7 @@ For manual trigger we use `workflow_dispatch:` for example:
 ```
 in workflow dispatch the `inputs` lets you provide some arguments with which you can fire the actions. Each input then has attributes like `description, required (whether its mandatory or not), deafult`.
 
-To know about `repository_dispatch` please go to my another repository [repository_dispatch_repo]() just to give you a brief its basically used to handle dependencies.
+To know about `repository_dispatch` please go to my another repository [repository_dispatch_repo](https://github.com/Vibaswan/trigger_repo) just to give you a brief its basically used to handle dependencies.
 
 Now in each of the events you can provide `branches` option regarding for which branch the workflow will be triggered and also `paths-ignore:` which will ignore firing the actions if those files are changed.
 
@@ -94,7 +94,7 @@ with:
   token: ${{ secrets.GITHUB_TOKEN }}
 ```
 
-I have some added some basic samples in the folder [GitHub Action Samples]().
+I have some added some basic samples in the folder [GitHub Action Samples](https://github.com/Vibaswan/Gihub_Actions_introduction/tree/main/Github_action_samples).
 Have a look it will help you understand more.
 
 ## Hope this helped you !! :sparkles::sparkles:
