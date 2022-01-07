@@ -43,28 +43,28 @@ jobs:
       - name: Run a one-line script
         run: echo Hello, world!
 
-      # setting python path
-      - name: set python path
-        id: path
-        run: echo "::set-output name=pythonv::c:/${{matrix.python-version}}/python"
+      # setting python path just here if you want to redirect to a specific python path 
+      # - name: set python path
+      #   id: path
+      #   run: echo "::set-output name=pythonv::c:/${{matrix.python-version}}/python"
 
       # Installing some dependencies
       - name: Install dependencies
         run: |
-          ${{steps.path.outputs.pythonv}} -m pip install --upgrade pip
-          ${{steps.path.outputs.pythonv}} -m pip install pytest
-          ${{steps.path.outputs.pythonv}} -m pip install requests
-          ${{steps.path.outputs.pythonv}} -m pip install pyaml
-          ${{steps.path.outputs.pythonv}} -m pip install pandas
-          ${{steps.path.outputs.pythonv}} -m pip install dpkt
-          ${{steps.path.outputs.pythonv}} -m pip install jsonpath-ng
-          ${{steps.path.outputs.pythonv}} -m pip install abstract-open-traffic-generator
-          ${{steps.path.outputs.pythonv}} -m pip install ixnetwork-restpy
-          ${{steps.path.outputs.pythonv}} -m pip install scapy
+          python -m pip install --upgrade pip
+          python-m pip install pytest
+          python -m pip install requests
+          python -m pip install pyaml
+          python -m pip install pandas
+          python -m pip install dpkt
+          python -m pip install jsonpath-ng
+          python -m pip install abstract-open-traffic-generator
+          python -m pip install ixnetwork-restpy
+          python -m pip install scapy
 
       # Running the pytest for testing code
       - name: running the unit test
-        run: ${{steps.path.outputs.pythonv}} -m pytest -s -v tests --disable-warnings
+        run: python -m pytest -s -v tests --disable-warnings
 
       # checking which files changed
       - name: check which files changed
