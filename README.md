@@ -102,4 +102,4 @@ Have a look at it, will help you understand more.
 Reference taken from [workflow syntax](https://docs.github.com/en/actions/learn-github-actions/workflow-syntax-for-github-actions). You can refer to this link for even more details.
 
 
-## Hope this helped you !! :sparkles::sparkles:
+## Hope this helpes you !! :sparkles::sparkles:
