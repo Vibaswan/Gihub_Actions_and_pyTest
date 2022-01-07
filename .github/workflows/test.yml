@@ -16,7 +16,7 @@ jobs:
   # This workflow contains a single job called "build"
   deploy_and_test:
     # The type of runner that the job will run on
-    runs-on: [self-hosted, windows, x64]
+    runs-on: windows-latest
     strategy:
       matrix:
         python-version: [27, 38]
@@ -64,7 +64,7 @@ jobs:
 
       # Running the pytest for testing code
       - name: running the unit test
-        run: ${{steps.path.outputs.pythonv}} -m pytest -s -v test2 --disable-warnings
+        run: ${{steps.path.outputs.pythonv}} -m pytest -s -v tests --disable-warnings
 
       # checking which files changed
       - name: check which files changed
