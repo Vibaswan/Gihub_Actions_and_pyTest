@@ -99,4 +99,7 @@ with:
 I have added some basic samples in the folder [GitHub Action Samples](https://github.com/Vibaswan/Gihub_Actions_introduction/tree/main/Github_action_samples).
 Have a look at it, will help you understand more.
 
+Reference taken from [workflow syntax](https://docs.github.com/en/actions/learn-github-actions/workflow-syntax-for-github-actions). You can refer to this link for even more details.
+
+
 ## Hope this helped you !! :sparkles::sparkles:
