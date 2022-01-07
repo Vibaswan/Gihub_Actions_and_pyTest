@@ -1,4 +1,7 @@
 # GitHub_Actions_introduction
+
+![GitHub Workflow Status](https://img.shields.io/github/workflow/status/Vibaswan/Gihub_Actions_introduction/CI?style=plastic)
+
 I thought of making this repository just for people who are new to github actions, and want to get a quick flavour of the GitHub actions.
 
 I personally think that GitHub actions are great and makes CI/CD for open source really easy to use. So Kudos to GitHub ! :+1:
