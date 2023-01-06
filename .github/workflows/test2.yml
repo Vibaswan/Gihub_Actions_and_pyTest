@@ -17,7 +17,7 @@ jobs:
         run: echo Hello, world!
       
       - name: check ci var
-        run: echo ${github.ci}
+        run: echo ${{ github.ci }}
       - name: check ci var
         run: echo $CI
     
