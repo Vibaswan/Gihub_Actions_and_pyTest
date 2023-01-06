@@ -1,0 +1,19 @@
+name: CI
+
+
+on:
+  workflow_dispatch:
+
+jobs:
+  # This workflow contains a single job called "build"
+  random:
+    runs-on: ubuntu-latest
+    
+    
+    steps:
+
+      # checking out my code
+      - name: check var
+        run: echo Hello, world!
+    
+    
