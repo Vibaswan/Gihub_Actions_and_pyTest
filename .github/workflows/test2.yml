@@ -22,6 +22,11 @@ jobs:
       - name: check ci var
         run: echo $CI
       - name: calling composite 
+      - name: run 1
+        uses: ./workflow_helpers
+        with:
+          who-to-greet: 'Mona'
+      - name: run 2
         uses: ./workflow_helpers
         with:
           who-to-greet: 'Mona'
