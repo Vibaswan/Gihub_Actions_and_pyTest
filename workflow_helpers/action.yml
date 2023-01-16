@@ -7,13 +7,13 @@ inputs:
     default: 'World'
   only-setup:
     description: "only sets up python and go"
-    deafult: false
+    deafult: 'false'
   execute-go-test:
     description: "runs go test"
-    deafult: true
+    deafult: 'true'
   execute-python-test:
     description: "runs python test"
-    deafult: true
+    deafult: 'true'
     
 runs:
   using: "composite"
@@ -26,19 +26,16 @@ runs:
     - name: github path
       run: echo ${{ inputs.who-to-greet }}
       shell: bash
-    - run: echo ${{ inputs.only-setup }}
-#       if: ${{ inputs.only-setup }}
-#       run: |
-#         echo "wohoo not running this"
-#         echo "thats all!"
+    - if: ${{ inputs.only-setup == 'true' }}
+      run: |
+        echo "wohoo not running this"
+        echo "thats all!"
       shell: bash
-    - run: echo ${{ inputs.execute-go-test }}
-#       if: ${{ inputs.execute-go-test }}
-#       run: |
-#         echo "running go tests"
+    - if: ${{ inputs.execute-go-test == 'true' }}
+      run: |
+        echo "running go tests"
       shell: bash
-    - run: echo ${{ inputs.execute-python-test }}
-#       if: ${{ inputs.execute-python-test }}
-#       run: |
-#         echo "running python tests"
+    - run: if: ${{ inputs.execute-python-test == 'true' }}
+      run: |
+        echo "running python tests"
       shell: bash
