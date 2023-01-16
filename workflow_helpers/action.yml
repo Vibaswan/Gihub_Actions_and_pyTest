@@ -13,7 +13,7 @@ inputs:
     deafult: true
   execute-python-test:
     description: "runs python test"
-    deafult:true
+    deafult: true
     
 runs:
   using: "composite"
