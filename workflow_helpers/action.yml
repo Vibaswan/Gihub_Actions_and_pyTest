@@ -33,15 +33,15 @@ runs:
         echo "wohoo not running this"
         echo "thats all!"
       shell: bash
-    - if: ${{ execute_go_tests }}
+    - if: ${{ inputs.execute_go_tests }}
       run: |
         echo "running go tests"
       shell: bash
-    - if: ${{ execute_python_tests }}
+    - if: ${{ inputs.execute_python_tests }}
       run: |
         echo "running python tests"
       shell: bash
-    - if: ${{ execute_python_tests  && only_setup }}
+    - if: ${{ inputs.execute_python_tests  && inputs.only_setup }}
       run: |
         echo "running python tests!!!!!!!!  as both are true"
       shell: bash
