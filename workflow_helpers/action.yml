@@ -6,13 +6,13 @@ inputs:
     default: 'World'
   only_setup:
     description: "only sets up python and go"
-    default: false
+    default: 'false'
   execute_go_tests:
     description: "runs go test"
-    default: true
+    default: 'true'
   execute_python_tests:
     description: "runs python test"
-    default: true
+    default: 'true'
     
 runs:
   using: "composite"
@@ -28,7 +28,7 @@ runs:
         echo ${{ inputs.execute_go_tests }}
         echo ${{ inputs.execute_python_tests }}
       shell: bash
-    - if: ${{ inputs.only_setup }}
+    - if: ${{ inputs.only_setup == 'true' }}
       run: |
         echo "wohoo not running this"
         echo "thats all!"
@@ -37,11 +37,11 @@ runs:
       run: |
         echo "running go tests"
       shell: bash
-    - if: ${{ inputs.execute_python_tests }}
+    - if: ${{ inputs.execute_python_tests == 'true' }}
       run: |
         echo "running python tests"
       shell: bash
-    - if: ${{ inputs.execute_python_tests  && inputs.only_setup }}
+    - if: ${{ inputs.execute_python_tests == 'true'  && inputs.only_setup == 'false' }}
       run: |
         echo "running python tests!!!!!!!!  as both are true"
       shell: bash
