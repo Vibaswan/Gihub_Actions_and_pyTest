@@ -1,0 +1,25 @@
+name: 'Hello World'
+description: 'sets up env for test and executes test'
+inputs:
+  who-to-greet:  # id of input
+    description: 'Who to greet'
+    required: true
+    default: 'World'
+  only-setup:
+    description: "only sets up python and go"
+    deafult: false
+  execute-go-test:
+    description: "runs go test"
+    deafult: true
+  execute-python-test:
+    description: "runs python test"
+    deafult:true
+    
+runs:
+  using: "composite"
+  steps:
+    - run: pwd
+    - name: wohoo
+      run: ls
+    - name: github path
+      run: echo $GITHUB_ACTION_PATH
