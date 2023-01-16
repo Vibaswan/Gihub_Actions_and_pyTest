@@ -26,16 +26,19 @@ runs:
     - name: github path
       run: echo ${{ inputs.who-to-greet }}
       shell: bash
-    - if: ${{ inputs.only-setup }}
+    - run: echo ${{ inputs.only-setup }}
+      if: ${{ inputs.only-setup }}
       run: |
         echo "wohoo not running this"
         echo "thats all!"
       shell: bash
-    - if: ${{ inputs.execute-go-test }}
+    - run: echo ${{ inputs.execute-go-test }}
+      if: ${{ inputs.execute-go-test }}
       run: |
         echo "running go tests"
       shell: bash
-    - if: ${{ inputs.execute-python-test }}
+    - run: echo ${{ inputs.execute-python-test }}
+      if: ${{ inputs.execute-python-test }}
       run: |
         echo "running python tests"
       shell: bash
