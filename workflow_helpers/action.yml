@@ -19,7 +19,10 @@ runs:
   using: "composite"
   steps:
     - run: pwd
+      shell: bash
     - name: wohoo
       run: ls
+      shell: bash
     - name: github path
       run: echo $GITHUB_ACTION_PATH
+      shell: bash
