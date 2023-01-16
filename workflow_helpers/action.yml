@@ -28,14 +28,14 @@ runs:
       shell: bash
     - if: ${{ inputs.only-setup }}
       run: |
-      echo "wohoo not running this"
-      echo "thats all!"
+        echo "wohoo not running this"
+        echo "thats all!"
       shell: bash
     - if: ${{ execute-go-test }}
       run: |
-      echo "running go tests"
+        echo "running go tests"
       shell: bash
     - if: ${{ execute-python-test }}
       run: |
-      echo "running go tests"
+        echo "running go tests"
       shell: bash
