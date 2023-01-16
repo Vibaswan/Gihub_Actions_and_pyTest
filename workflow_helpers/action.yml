@@ -3,17 +3,16 @@ description: 'sets up env for test and executes test'
 inputs:
   who-to-greet:  # id of input
     description: 'Who to greet'
-    required: true
     default: 'World'
-  only-setup:
+  only_setup:
     description: "only sets up python and go"
-    deafult: 'false'
-  execute-go-test:
+    default: false
+  execute_go_test:
     description: "runs go test"
-    deafult: 'true'
-  execute-python-test:
+    default: true
+  execute_python_test:
     description: "runs python test"
-    deafult: 'true'
+    default: true
     
 runs:
   using: "composite"
@@ -24,18 +23,21 @@ runs:
       run: ls
       shell: bash
     - name: github path
-      run: echo ${{ inputs.who-to-greet }}
+      run: |
+        echo ${{ inputs.who-to-greet }}
+        echo ${{ inputs.execute-go-test }}
+        echo ${{ inputs.execute-python-test }}
       shell: bash
-    - if: ${{ inputs.only-setup == 'true' }}
+    - if: ${{ inputs.only-setup }}
       run: |
         echo "wohoo not running this"
         echo "thats all!"
       shell: bash
-    - if: ${{ inputs.execute-go-test == 'true' }}
+    - if: ${{ inputs.execute-go-test }}
       run: |
         echo "running go tests"
       shell: bash
-    - if: ${{ inputs.execute-python-test == 'true' }}
+    - if: ${{ inputs.execute-python-test }}
       run: |
         echo "running python tests"
       shell: bash
