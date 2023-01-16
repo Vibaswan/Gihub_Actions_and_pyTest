@@ -21,7 +21,6 @@ jobs:
         run: echo ${{ github.ci }}
       - name: check ci var
         run: echo $CI
-      - name: calling composite 
       - name: run 1
         uses: ./workflow_helpers
         with:
