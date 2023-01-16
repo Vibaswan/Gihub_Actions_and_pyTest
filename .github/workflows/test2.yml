@@ -25,12 +25,12 @@ jobs:
         uses: ./workflow_helpers
         with:
           who-to-greet: 'Mona'
-          only-setup: true
+          only-setup: 'true'
       - name: run 2
         uses: ./workflow_helpers
         with:
           who-to-greet: 'Mona'
-          execute-go-tests: false
-          execute-python-test: false
+          execute-go-tests: 'false'
+          execute-python-test: 'false'
     
     
