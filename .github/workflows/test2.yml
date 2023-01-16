@@ -29,8 +29,8 @@ jobs:
         uses: ./workflow_helpers
         with:
           who-to-greet: 'Mona'
-          only_setup: true
-          execute_go_tests: false
-          execute_python_tests: false
+          only_setup: 'true'
+          execute_go_tests: 'false'
+          execute_python_tests: 'false'
     
     
