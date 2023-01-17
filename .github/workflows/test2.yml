@@ -18,7 +18,7 @@ jobs:
       - name: check go
         run: go version
       - name: check python
-        run: python -v
+        run: python -V
       - name: checkout
         uses: actions/checkout@v2
       - name: check ci var
