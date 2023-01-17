@@ -15,6 +15,10 @@ jobs:
       # checking out my code
       - name: check var
         run: echo Hello, world!
+      - name: check go
+        run: go version
+      - name: check python
+        run: python -v
       - name: checkout
         uses: actions/checkout@v2
       - name: check ci var
