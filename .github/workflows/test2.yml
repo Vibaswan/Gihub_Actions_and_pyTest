@@ -1,5 +1,7 @@
 name: random
-
+env:
+  PYTHON_VERSION: '3.8'
+  GO_VERSION: '1.18'
 
 on:
   workflow_dispatch:
@@ -13,6 +15,14 @@ jobs:
     steps:
 
       # checking out my code
+      - name: Setup Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: ${{ env.PYTHON_VERSION }}
+      - name: Setup Go
+        uses: actions/setup-go@v3
+        with:
+          go-version: ${{ env.GO_VERSION }}
       - name: check var
         run: echo Hello, world!
       - name: check go
