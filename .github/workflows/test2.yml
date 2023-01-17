@@ -2,6 +2,7 @@ name: random
 env:
   PYTHON_VERSION: '3.8'
   GO_VERSION: '1.18'
+  OS_VERSION: "ubuntu-22.04"
 
 on:
   workflow_dispatch:
@@ -9,7 +10,7 @@ on:
 jobs:
   # This workflow contains a single job called "build"
   random:
-    runs-on: ubuntu-22.04
+    runs-on: ${{ env.OS_VERSION }}
     
     
     steps:
