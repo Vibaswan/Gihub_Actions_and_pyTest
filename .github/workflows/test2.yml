@@ -9,7 +9,7 @@ on:
 jobs:
   # This workflow contains a single job called "build"
   random:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
     
     
     steps:
@@ -23,6 +23,8 @@ jobs:
         uses: actions/setup-go@v3
         with:
           go-version: ${{ env.GO_VERSION }}
+      - name: Setup docker
+        uses: docker-practice/actions-setup-docker@master
       - name: check var
         run: echo Hello, world!
       - name: check go
