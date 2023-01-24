@@ -16,6 +16,11 @@ jobs:
     steps:
 
       # checking out my code
+      - name: check gen files
+        uses: andstor/file-existence-action@v2
+        with:
+          files: "LICENSE, README.md"
+          fail: true
       - name: Setup Python
         uses: actions/setup-python@v2
         with:
