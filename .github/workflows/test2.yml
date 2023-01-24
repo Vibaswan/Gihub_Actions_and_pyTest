@@ -20,7 +20,7 @@ jobs:
       - name: "Check file existence"
         uses: andstor/file-existence-action@v2
         with:
-          files: "LICENSE, README.md"
+          files: "LICENSE, README.md, yoyo.py"
           fail: true
       - name: File exists
         if: steps.check_files.outputs.files_exists == 'true'
