@@ -16,10 +16,14 @@ jobs:
 
       # checking out my code
       - name: check gen files
+        id: check_files
         uses: andstor/file-existence-action@v2
         with:
-          files: "./requirements.txt"
-          fail: true
+          files: "requirements.txt"
+      - name: File exists
+        if: steps.check_files.outputs.files_exists == 'true'
+        # Only runs if all of the files exists
+        run: echo All files exists!
       - name: Setup Python
         uses: actions/setup-python@v2
         with:
