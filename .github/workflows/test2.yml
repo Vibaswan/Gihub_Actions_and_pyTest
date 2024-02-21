@@ -5,6 +5,8 @@ env:
 
 on:
   workflow_dispatch:
+    branches:
+      -'!main'
 
 jobs:
   # This workflow contains a single job called "build"
